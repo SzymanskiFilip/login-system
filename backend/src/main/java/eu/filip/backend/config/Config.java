@@ -1,37 +1,36 @@
-package eu.filip.backend.security;
+package eu.filip.backend.config;
 
-import eu.filip.backend.controller.CustomLoginFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Configuration
 @EnableWebSecurity
+@Configuration
 public class Config extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("user123").roles("USER");
+        auth.inMemoryAuthentication()
+                .withUser("user")
+                .password("user1")
+                .roles("USER")
+                .and()
+                .withUser("admin")
+                .password("admin1")
+                .roles("ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        CustomLoginFilter loginFilter = new CustomLoginFilter();
-        loginFilter.setAuthenticationManager(authenticationManager());
-
-        http
-                .csrf().disable()
-                .addFilterAt(loginFilter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/ping").permitAll()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/data").authenticated();
+        http.authorizeRequests()
+                .antMatchers("/hello").permitAll()
+                .anyRequest().hasRole("ADMIN")
+                .and()
+                .httpBasic();
     }
 
     @Bean
