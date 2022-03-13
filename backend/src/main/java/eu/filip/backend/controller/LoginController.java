@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/login")
     public void login(@RequestBody LoginCredentials loginCredentials){
         //no need actually
