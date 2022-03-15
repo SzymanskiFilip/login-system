@@ -29,6 +29,8 @@ function LoginForm(){
 
         //TODO: 1. Jak zaloguje to zmiana strony co wyświetla role
         //TODO: 2. Jak nie zaloguje wyświetlić błąd i jeszcze raz forme
+        //TODO: 3. Dodać guzik wylogowania
+        //TODO: 4. Usunąć wszytkie COOKIES jak wyloguje
 
     }
 
