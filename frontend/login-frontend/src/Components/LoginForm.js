@@ -14,13 +14,6 @@ function LoginForm(){
             "password": password
         };
 
-        /*
-                console.log("username: " + username + " password: " + password);
-                axios.post("http://localhost:8080/login", payload)
-                    .then(res => console.log(res));
-
-                */
-
         let config = {
             method: "POST",
             mode: "cors",
@@ -32,8 +25,10 @@ function LoginForm(){
         };
 
         fetch("http://localhost:8080/login", config)
-            .then(res => console.log(res))
+            .then(res => console.log(res));
 
+        //TODO: 1. Jak zaloguje to zmiana strony co wyświetla role
+        //TODO: 2. Jak nie zaloguje wyświetlić błąd i jeszcze raz forme
 
     }
 
