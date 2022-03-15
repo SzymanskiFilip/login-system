@@ -17,6 +17,7 @@ import java.io.IOException;
 public class JsonObjectAuthFilter extends UsernamePasswordAuthenticationFilter {
 
     private final ObjectMapper objectMapper;
+    //TODO: DODAĆ BAZE DANCYCH
 
     public JsonObjectAuthFilter(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -38,6 +39,7 @@ public class JsonObjectAuthFilter extends UsernamePasswordAuthenticationFilter {
             setDetails(request, token);
             response.setHeader("Access-Control-Allow-Credentials", "true");
             response.addCookie(new Cookie("TEST", "TEST"));
+            response.addCookie(new Cookie("ROLE", "USER")); // HARDCODED USER ROLE, BASED ON JPA RESPONSE
             return this.getAuthenticationManager().authenticate(token);
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
