@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
@@ -35,9 +36,13 @@ public class JsonObjectAuthFilter extends UsernamePasswordAuthenticationFilter {
                     authRequest.getUsername(), authRequest.getPassword()
             );
             setDetails(request, token);
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.addCookie(new Cookie("TEST", "TEST"));
             return this.getAuthenticationManager().authenticate(token);
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
+
+
 }
