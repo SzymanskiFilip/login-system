@@ -1,10 +1,13 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import axios from "axios";
+import useAuth from "../hooks/useAuth";
+import AuthContext from "../context/AuthProvider";
 
 function LoginForm(){
 
     let [username, setUsername] = useState("");
     let [password, setPassword] = useState("");
+    const {setAuth} = useAuth();
 
     async function login(e){
        e.preventDefault();
