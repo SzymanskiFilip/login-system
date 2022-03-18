@@ -5,18 +5,18 @@ import Public from "./Components/Public";
 import RequireAuth from "./Components/RequireAuth";
 import {AuthContext} from "./context/Context";
 import {useState} from "react";
+import RequireNoAuth from "./Components/RequireNoAuth";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
 
   return (
-
+      <AuthContext.Provider value ={{authenticated,setAuthenticated}}>
         <Routes>
-
             <Route path="/login" element={
-                <AuthContext.Provider value ={{authenticated,setAuthenticated}}>
-                    <LoginForm/>
-                </AuthContext.Provider>
+                    <RequireNoAuth>
+                        <LoginForm/>
+                    </RequireNoAuth>
             }
             />
 
@@ -32,10 +32,10 @@ function App() {
                     <RequireAuth>
                         <Private />
                     </RequireAuth>
-
               }
             />
         </Routes>
+       </AuthContext.Provider>
 
   );
 }

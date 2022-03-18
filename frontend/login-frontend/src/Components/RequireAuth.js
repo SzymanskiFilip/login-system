@@ -4,7 +4,7 @@ import {useContext} from "react";
 function RequireAuth({children}){
 
     //TODO: GLOBALNE CZY JEST AUTH
-    let auth = true;
+    let auth = false;
     return auth === true ? children : <Navigate to="/login" replace/>
 }
 
