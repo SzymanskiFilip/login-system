@@ -1,15 +1,15 @@
 import {useContext, useState} from "react";
 import axios from "axios";
 import {Link, useNavigate, useLocation} from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import {AuthContext} from "../context/Context";
 
 function LoginForm(){
 
     let [username, setUsername] = useState("");
     let [password, setPassword] = useState("");
-
     const navigate = useNavigate();
-    const auth = useAuth();
+
+    const {authenticated, setAuthenticated} = useContext(AuthContext);
 
     async function login(e){
        e.preventDefault();
@@ -30,7 +30,7 @@ function LoginForm(){
         };
 
         fetch("http://localhost:8080/login", config)
-            .then(res => console.log(res))
+            .then(res => res.status)
         //jak response ok to redirect
 
 
@@ -43,10 +43,12 @@ function LoginForm(){
 
     const fakeAuth = (e) => {
         e.preventDefault();
-        console.log(auth);
-        if(auth == true){
-            navigate("/private");
+        setAuthenticated(true);
+        let RESPONSE_STATUS = true;
+        if(RESPONSE_STATUS === true){
+            navigate('/private');
         }
+
     }
 
     return(
