@@ -9,7 +9,8 @@ function LoginForm(){
     let [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const {authenticated, setAuthenticated} = useContext(AuthContext);
+    const {authenticated,setAuthenticated} = useContext(AuthContext);
+
 
     async function login(e){
        e.preventDefault();
@@ -30,26 +31,23 @@ function LoginForm(){
         };
 
         fetch("http://localhost:8080/login", config)
-            .then(res => res.status)
-        //jak response ok to redirect
-
-
-        //TODO: 1. Jak zaloguje to zmiana strony co wyświetla role
-        //TODO: 2. Jak nie zaloguje wyświetlić błąd i jeszcze raz forme
-        //TODO: 3. Dodać guzik wylogowania
-        //TODO: 4. Usunąć wszytkie COOKIES jak wyloguje
+            .then(res => console.log(res.status))
+        //TODO: Bazując na responsie zrobić nawigacje
 
     }
 
-    const fakeAuth = (e) => {
-        e.preventDefault();
+    async function redirection(){
+        /*
         setAuthenticated(true);
         let RESPONSE_STATUS = true;
         if(RESPONSE_STATUS === true){
             navigate('/private');
         }
-
+        */
     }
+
+
+
 
     return(
         <div>
@@ -59,7 +57,7 @@ function LoginForm(){
                 <h1>Password</h1>
                 <input type="text" name="password" onChange={e => setPassword(e.target.value)} />
                 <br/>
-                <button onClick={fakeAuth}>login</button>
+                <button onClick={login}>Login</button>
             </form>
         </div>
     )

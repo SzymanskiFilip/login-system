@@ -2,10 +2,11 @@ import {Navigate} from "react-router-dom";
 import {useContext} from "react";
 import {AuthContext} from "../context/Context";
 
-function RequireAuth({children}){
+function BlockAuth({children}){
 
     const {authenticated, setAuthenticated} = useContext(AuthContext);
-    return authenticated === true ? children : <Navigate to="/login" replace/>
+
+    return authenticated === false ? children : <Navigate to="/private"/>
 }
 
-export default RequireAuth;
+export default BlockAuth;
