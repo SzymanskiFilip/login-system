@@ -1,13 +1,15 @@
 import {useContext, useState} from "react";
 import axios from "axios";
+import {Link, useNavigate, useLocation} from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import AuthContext from "../context/AuthProvider";
 
 function LoginForm(){
 
     let [username, setUsername] = useState("");
     let [password, setPassword] = useState("");
-    const {setAuth} = useAuth();
+
+    const navigate = useNavigate();
+    const auth = useAuth();
 
     async function login(e){
        e.preventDefault();
@@ -28,7 +30,9 @@ function LoginForm(){
         };
 
         fetch("http://localhost:8080/login", config)
-            .then(res => console.log(res));
+            .then(res => console.log(res))
+        //jak response ok to redirect
+
 
         //TODO: 1. Jak zaloguje to zmiana strony co wyświetla role
         //TODO: 2. Jak nie zaloguje wyświetlić błąd i jeszcze raz forme
@@ -37,6 +41,13 @@ function LoginForm(){
 
     }
 
+    const fakeAuth = (e) => {
+        e.preventDefault();
+        console.log(auth);
+        if(auth == true){
+            navigate("/private");
+        }
+    }
 
     return(
         <div>
@@ -46,7 +57,7 @@ function LoginForm(){
                 <h1>Password</h1>
                 <input type="text" name="password" onChange={e => setPassword(e.target.value)} />
                 <br/>
-                <button onClick={login}>login</button>
+                <button onClick={fakeAuth}>login</button>
             </form>
         </div>
     )

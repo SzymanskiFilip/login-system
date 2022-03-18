@@ -1,8 +1,7 @@
 import {Routes, Route} from "react-router-dom";
 import LoginForm from "./Components/LoginForm";
-import Authenticated from "./Components/Authenticated";
+import Private from "./Components/Private";
 import Public from "./Components/Public";
-import RequireAuth from "./Components/RequireAuth";
 
 function App() {
   return (
@@ -14,9 +13,8 @@ function App() {
 
 
           {/* PRIVATE ROUTES */}
-          <Route element={<RequireAuth/>}>
-            <Route path="/authenticated" element={<Authenticated/>}/>
-          </Route>
+          <Route path="/private" element={<Private/>}/>
+
       </Routes>
   );
 }
