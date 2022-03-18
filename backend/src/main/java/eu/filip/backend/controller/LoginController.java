@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RestController
 public class LoginController {
@@ -35,5 +36,13 @@ public class LoginController {
         return "ADMIN RESOURCE";
     }
 
+    @GetMapping("/check")
+    public boolean check(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session != null){
+            return true;
+        }
+        return false;
+    }
 
 }

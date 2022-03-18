@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/admin").hasRole("ADMIN")
                     .antMatchers("/user").hasRole("USER")
                     .antMatchers("/logout").permitAll()
+                    .antMatchers("/check").authenticated()
                 .and()
                 .logout().logoutUrl("/X").and() //OVERRIDING LOGOUT
                 .addFilter(authFilter())
