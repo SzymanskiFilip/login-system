@@ -1,12 +1,12 @@
 import {useContext, useState} from "react";
-import axios from "axios";
-import {Link, useNavigate, useLocation} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 import {AuthContext} from "../context/Context";
 
 function LoginForm(){
 
     let [username, setUsername] = useState("");
     let [password, setPassword] = useState("");
+    let [response, setResponse] = useState(401);
     const navigate = useNavigate();
 
     const {authenticated,setAuthenticated} = useContext(AuthContext);
@@ -30,20 +30,24 @@ function LoginForm(){
             body: JSON.stringify(payload)
         };
 
-        fetch("http://localhost:8080/login", config)
-            .then(res => console.log(res.status))
-        //TODO: Bazując na responsie zrobić nawigacje
+        await fetch("http://localhost:8080/login", config)
+            .then((res) => {
+               if(res.status === 200){
+                   console.log("Authenticating, response status = 200")
+                   setResponse(res.status);
+                   setAuthenticated(true);
+                   redirection()
+               }
+            });
 
     }
 
-    async function redirection(){
-        /*
-        setAuthenticated(true);
-        let RESPONSE_STATUS = true;
-        if(RESPONSE_STATUS === true){
+    function redirection(){
+        if(response === 200){
             navigate('/private');
+        } else {
+            console.log("DIALOGUE BOX, TRY AGAIN");
         }
-        */
     }
 
 
