@@ -2,6 +2,8 @@ package eu.filip.backend.controller;
 
 import eu.filip.backend.utils.LoginCredentials;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
@@ -36,12 +38,8 @@ public class LoginController {
         return "ADMIN RESOURCE";
     }
 
-    @GetMapping("/check")
-    public boolean check(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        if(session != null){
-            return true;
-        }
+    @PostMapping("/check")
+    public boolean check(){
         return false;
     }
 

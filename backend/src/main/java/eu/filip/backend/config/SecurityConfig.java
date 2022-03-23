@@ -46,14 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/admin").hasRole("ADMIN")
                     .antMatchers("/user").hasRole("USER")
                     .antMatchers("/logout").permitAll()
-                    .antMatchers("/check").authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .logout().logoutUrl("/X").and() //OVERRIDING LOGOUT
                 .addFilter(authFilter())
                 .exceptionHandling()
-                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-                .and()
-                .headers().frameOptions().disable();
+                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
 
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);

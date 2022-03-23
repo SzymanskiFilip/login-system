@@ -1,6 +1,7 @@
 import {useContext, useState} from "react";
 import {useNavigate, useLocation} from "react-router-dom";
 import {AuthContext} from "../context/Context";
+import Cookies from "js-cookie";
 
 function LoginForm(){
 
@@ -32,6 +33,7 @@ function LoginForm(){
 
         await fetch("http://localhost:8080/login", config)
             .then((res) => {
+                console.log(res)
                if(res.status === 200){
                    console.log("Authenticating, response status = 200")
                    setResponse(res.status);

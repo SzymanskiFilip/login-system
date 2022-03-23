@@ -37,9 +37,11 @@ public class JsonObjectAuthFilter extends UsernamePasswordAuthenticationFilter {
                     authRequest.getUsername(), authRequest.getPassword()
             );
             setDetails(request, token);
-            response.setHeader("Access-Control-Allow-Credentials", "true");
-            response.addCookie(new Cookie("TEST", "TEST"));
+
             response.addCookie(new Cookie("ROLE", "USER")); // HARDCODED USER ROLE, BASED ON JPA RESPONSE
+
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+
             return this.getAuthenticationManager().authenticate(token);
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
