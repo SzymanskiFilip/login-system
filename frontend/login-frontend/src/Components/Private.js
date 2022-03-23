@@ -16,6 +16,7 @@ function Private(){
 
     function handleLogout(){
         console.log("I WANT TO LOG OUT!");
+        logout();
         setAuthenticated(false);
         navigate('/login');
     }
@@ -29,6 +30,13 @@ function Private(){
            if(res.status === 200){
                setAuthenticated(true);
            }
+        });
+    }
+
+    function logout(){
+        fetch("http://localhost:8080/logout",{
+           method: "POST",
+           credentials: 'include'
         });
     }
 
